@@ -1,0 +1,37 @@
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: foodtruckassessment
+    volumes:
+      - ./scripts/Mobile_Food_Facility_Permit.csv:/csv/Mobile_Food_Facility_Permit.csv
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+
+  web:
+    container_name: foodtruckassessment
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: foodtruckassessment
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - postgres
+    restart: unless-stopped
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  pgadmin:
