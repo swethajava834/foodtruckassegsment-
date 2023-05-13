@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: 'FoodTruckAssessment'
+  datasource:
+    username: postgres
+    password: password
+    url: jdbc:postgresql://postgres:5432/foodtruckassessment
+    driverClassName: org.postgresql.Driver
+
+springdoc:
+  api-docs:
+    path: /v1/api-docs
+
